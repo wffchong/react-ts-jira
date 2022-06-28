@@ -1,4 +1,15 @@
-const SearchPanel = ({ users, params, setParams }) => {
+import { IUser } from './types'
+
+interface ISearchPanelProps {
+    users: IUser[]
+    params: {
+        name: string
+        personId: string
+    }
+    setParams: (params: ISearchPanelProps['params']) => void
+}
+
+const SearchPanel = ({ users, params, setParams }: ISearchPanelProps) => {
     return (
         <form>
             <input

@@ -1,4 +1,11 @@
-const List = ({ list, users }) => {
+import { IProject, IUser } from './types'
+
+interface IListProps {
+    list: IProject[]
+    users: IUser[]
+}
+
+const List = ({ list, users }: IListProps) => {
     return (
         <table>
             <thead>
@@ -12,7 +19,7 @@ const List = ({ list, users }) => {
                     return (
                         <tr key={item.id}>
                             <th>{item.name}</th>
-                            <th>{users.find((user) => user.id === item.personId).name}</th>
+                            <th>{users.find((user) => user.id === item.personId)?.name || '未知'}</th>
                         </tr>
                     )
                 })}

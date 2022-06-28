@@ -15,7 +15,7 @@ export const ProjectListScreen = () => {
         personId: ''
     })
 
-    const debounceParams = useDebounce(params, 2000)
+    const debounceParams = useDebounce(params, 200)
 
     useEffect(() => {
         fetch(`${baseUrl}/projects?${qs.stringify(cleanObject(debounceParams))}`).then(async (response) => {
