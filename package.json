@@ -10,6 +10,7 @@
         "@types/node": "^16.11.41",
         "@types/react": "^18.0.14",
         "@types/react-dom": "^18.0.5",
+        "qs": "^6.11.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-scripts": "5.0.1",
@@ -22,7 +23,7 @@
         "eject": "react-scripts eject",
         "prepare": "husky install",
         "prettier": "prettier --write .",
-        "mock": "json-server ./__json_server_mock__/db.json --watch --port 6000"
+        "mock": "json-server ./__json_server_mock__/db.json --watch --port 3002"
     },
     "eslintConfig": {
         "extends": [
