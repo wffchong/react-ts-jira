@@ -5,7 +5,7 @@ const AuthenticatedApp = () => {
     const { logout } = useAuth()
     return (
         <div>
-            <button onClick={() => logout}>退出</button>
+            <button onClick={logout}>退出</button>
             <ProjectListScreen></ProjectListScreen>
         </div>
     )
