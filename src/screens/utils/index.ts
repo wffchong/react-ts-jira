@@ -14,7 +14,7 @@ export function cleanObject(object: object) {
     return res
 }
 
-export function isFalse(val: any) {
+export function isFalse(val: unknown) {
     return val === 0 ? true : !!val
 }
 
@@ -25,7 +25,7 @@ export const useMount = (callBack: () => void) => {
     }, [])
 }
 
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = (value: any, delay: number) => {
     const [debounceValue, setDebounceValue] = useState(value)
     useEffect(() => {
         const timer = setTimeout(() => {
