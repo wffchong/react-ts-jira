@@ -23,7 +23,7 @@
         "eject": "react-scripts eject",
         "prepare": "husky install",
         "prettier": "prettier --write .",
-        "mock": "json-server ./__json_server_mock__/db.json --watch --port 3002"
+        "mock": "json-server ./__json_server_mock__/db.json --watch --port 3002 --middlewares ./__json_server_mock__/middleware.js"
     },
     "eslintConfig": {
         "extends": [
