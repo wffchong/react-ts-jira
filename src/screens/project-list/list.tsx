@@ -1,4 +1,5 @@
 import { IProject, IUser } from './types'
+import { Table } from 'antd'
 
 interface IListProps {
     list: IProject[]
@@ -7,24 +8,27 @@ interface IListProps {
 
 const List = ({ list, users }: IListProps) => {
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>名称</th>
-                    <th>负责人</th>
-                </tr>
-            </thead>
-            <tbody>
-                {list.map((item) => {
-                    return (
-                        <tr key={item.id}>
-                            <th>{item.name}</th>
-                            <th>{users.find((user) => user.id === item.personId)?.name || '未知'}</th>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
+        <Table
+            columns={[
+                {
+                    title: '名称',
+                    dataIndex: 'name',
+                    sorter: (a, b) => a.name.localeCompare(b.name)
+                },
+                {
+                    title: '负责人',
+                    render(item: IProject) {
+                        return (
+                            <span key={item.id}>
+                                <th>{users.find((user) => user.id === item.personId)?.name || '未知'}</th>
+                            </span>
+                        )
+                    }
+                }
+            ]}
+            dataSource={list}
+            pagination={false}
+        ></Table>
     )
 }
 

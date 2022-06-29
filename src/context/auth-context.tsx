@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, ReactNode, useCallback } from 'react'
+import { createContext, useState, useContext, ReactNode } from 'react'
 import * as auth from 'auth-provider'
 import { IUser } from 'screens/project-list/types'
 import { ILoginParams } from 'unauthenticated-app/login'

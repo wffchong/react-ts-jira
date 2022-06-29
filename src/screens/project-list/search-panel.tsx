@@ -1,4 +1,5 @@
 import { IUser } from './types'
+import { Form, Input, Select } from 'antd'
 
 interface ISearchPanelProps {
     users: IUser[]
@@ -11,8 +12,8 @@ interface ISearchPanelProps {
 
 const SearchPanel = ({ users, params, setParams }: ISearchPanelProps) => {
     return (
-        <form>
-            <input
+        <Form>
+            <Input
                 type="text"
                 value={params.name}
                 onChange={(ev) =>
@@ -22,25 +23,25 @@ const SearchPanel = ({ users, params, setParams }: ISearchPanelProps) => {
                     })
                 }
             />
-            <select
+            <Select
                 value={params.personId}
-                onChange={(ev) =>
+                onChange={(value) =>
                     setParams({
                         ...params,
-                        personId: ev.target.value
+                        personId: value
                     })
                 }
             >
-                <option value="">负责人</option>
+                <Select.Option value="">负责人</Select.Option>
                 {users.map((item) => {
                     return (
-                        <option key={item.id} value={item.id}>
+                        <Select.Option key={item.id} value={item.id}>
                             {item.name}
-                        </option>
+                        </Select.Option>
                     )
                 })}
-            </select>
-        </form>
+            </Select>
+        </Form>
     )
 }
 

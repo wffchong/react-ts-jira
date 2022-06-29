@@ -19,10 +19,16 @@ export function isFalse(val: unknown) {
 }
 
 export const useMount = (callBack: () => void) => {
-    useEffect(() => {
+    // useEffect(() => {
+    //     typeof callBack === 'function' && callBack()
+    //     // eslint-disable-next-line
+    // }, [])
+    const [first, setFirst] = useState(true)
+
+    if (first) {
         typeof callBack === 'function' && callBack()
-        // eslint-disable-next-line
-    }, [])
+        setFirst(false)
+    }
 }
 
 export const useDebounce = <V>(value: V, delay: number) => {

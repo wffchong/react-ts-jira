@@ -18,12 +18,12 @@ import AppProviders from './context'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 loadServer(() =>
     root.render(
-        <React.StrictMode>
-            <AppProviders>
-                <DevTools></DevTools>
-                <App />
-            </AppProviders>
-        </React.StrictMode>
+        // <React.StrictMode>
+        <AppProviders>
+            <DevTools></DevTools>
+            <App />
+        </AppProviders>
+        // </React.StrictMode>
     )
 )
 
