@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 
 // 去除对象里面的值为假的，除开0
-export function cleanObject(object: object) {
+export function cleanObject(object: { [key: string]: unknown }) {
     const res = { ...object }
 
     for (const key in res) {
-        // @ts-ignore
         if (!isFalse(object[key])) {
-            // @ts-ignore
             delete res[key]
         }
     }
