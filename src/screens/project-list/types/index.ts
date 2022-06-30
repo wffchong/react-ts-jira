@@ -13,4 +13,5 @@ export interface IProject {
     personId: string
     pin: boolean
     organization: string
+    created: number
 }

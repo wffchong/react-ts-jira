@@ -1,5 +1,6 @@
 import { IProject, IUser } from './types'
 import { Table } from 'antd'
+import dayjs from 'dayjs'
 
 interface IListProps {
     list: IProject[]
@@ -9,11 +10,16 @@ interface IListProps {
 const List = ({ list, users }: IListProps) => {
     return (
         <Table
+            rowKey={'id'}
             columns={[
                 {
                     title: '名称',
                     dataIndex: 'name',
                     sorter: (a, b) => a.name.localeCompare(b.name)
+                },
+                {
+                    title: '部门',
+                    dataIndex: 'organization'
                 },
                 {
                     title: '负责人',
@@ -23,6 +29,12 @@ const List = ({ list, users }: IListProps) => {
                                 <th>{users.find((user) => user.id === item.personId)?.name || '未知'}</th>
                             </span>
                         )
+                    }
+                },
+                {
+                    title: '创建时间',
+                    render(item: IProject) {
+                        return <span>{dayjs(item.created).format('YYYY-MM-DD')}</span>
                     }
                 }
             ]}
