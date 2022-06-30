@@ -25,9 +25,7 @@ const List = ({ list, users }: IListProps) => {
                     title: '负责人',
                     render(item: IProject) {
                         return (
-                            <span key={item.id}>
-                                <th>{users.find((user) => user.id === item.personId)?.name || '未知'}</th>
-                            </span>
+                            <span key={item.id}>{users.find((user) => user.id === item.personId)?.name || '未知'}</span>
                         )
                     }
                 },
