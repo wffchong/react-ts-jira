@@ -7,9 +7,7 @@ import { Button, Dropdown, Menu } from 'antd'
 
 const AuthenticatedApp = () => {
     const { logout, user } = useAuth()
-    const clickMenu = () => {
-        console.log(' ', 1)
-    }
+
     return (
         <Container>
             <Header between>
@@ -29,7 +27,7 @@ const AuthenticatedApp = () => {
                                         label: '退出'
                                     }
                                 ]}
-                                onClick={clickMenu}
+                                onClick={logout}
                             ></Menu>
                         }
                     >
