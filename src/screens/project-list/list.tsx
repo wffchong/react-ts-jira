@@ -1,13 +1,14 @@
 import { IProject, IUser } from './types'
 import { Table } from 'antd'
+import type { TableProps } from 'antd'
 import dayjs from 'dayjs'
 
-interface IListProps {
-    list: IProject[]
+// 这样写可以把传过来的赋值给table的属性一下展开
+interface IListProps extends TableProps<IProject> {
     users: IUser[]
 }
 
-const List = ({ list, users }: IListProps) => {
+const List = ({ users, ...props }: IListProps) => {
     return (
         <Table
             rowKey={'id'}
@@ -36,8 +37,7 @@ const List = ({ list, users }: IListProps) => {
                     }
                 }
             ]}
-            dataSource={list}
-            pagination={false}
+            {...props}
         ></Table>
     )
 }
