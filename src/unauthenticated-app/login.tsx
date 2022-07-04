@@ -1,16 +1,29 @@
 import { useAuth } from 'context/auth-context'
 import { Form, Input } from 'antd'
 import { LongButton } from 'unauthenticated-app'
+import { useAsync } from 'screens/project-list/hooks/use-async'
 
 export interface ILoginParams {
     username: string
     password: string
 }
 
-const LoginScreen = () => {
-    const { login } = useAuth()
+interface ILoginProps {
+    onError: (error: Error) => void
+}
 
-    const handleSubmit = (value: { username: string; password: string }) => login(value)
+const LoginScreen = ({ onError }: ILoginProps) => {
+    const { login } = useAuth()
+    const { isLoading, run } = useAsync(undefined, { throwOnError: true })
+
+    const handleSubmit = async (value: { username: string; password: string }) => {
+        try {
+            // 这里如果使用run的话catch捕捉不到错误，因为已经在run里面把错误消化了，所以需要改进一下run
+            await run(login(value))
+        } catch (error: any) {
+            onError(error)
+        }
+    }
 
     return (
         <Form onFinish={handleSubmit}>
@@ -21,7 +34,7 @@ const LoginScreen = () => {
                 <Input type="password" placeholder="请输入密码" />
             </Form.Item>
             <Form.Item>
-                <LongButton htmlType="submit" type="primary">
+                <LongButton loading={isLoading} htmlType="submit" type="primary">
                     登录
                 </LongButton>
             </Form.Item>

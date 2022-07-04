@@ -25,7 +25,8 @@ export const login = (params: ILoginParams) => {
         if (response.ok) {
             return handleLoginResponse(await response.json())
         } else {
-            return Promise.reject(params)
+            // 这里需要返回错误信息
+            return Promise.reject(await response.json())
         }
     })
 }
@@ -41,7 +42,8 @@ export const register = (params: ILoginParams) => {
         if (response.ok) {
             return handleLoginResponse(await response.json())
         } else {
-            return Promise.reject(params)
+            // 这里需要返回错误信息
+            return Promise.reject(await response.json())
         }
     })
 }
