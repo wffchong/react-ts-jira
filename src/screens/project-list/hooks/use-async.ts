@@ -28,7 +28,7 @@ export const useAsync = <D>(initialState?: IState<D>, initialConfig?: typeof def
     const config = { ...defaultConfig, ...initialConfig }
 
     const setData = (data: D) => {
-        setState({ ...state, data })
+        setState({ data, error: null, status: 'success' })
     }
 
     const setError = (error: Error) => {

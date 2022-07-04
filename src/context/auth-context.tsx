@@ -1,9 +1,11 @@
-import { createContext, useState, useContext, ReactNode } from 'react'
+import { createContext, useContext, ReactNode } from 'react'
 import * as auth from 'auth-provider'
 import { IUser } from 'screens/project-list/types'
 import { ILoginParams } from 'unauthenticated-app/login'
 import { http } from 'utils/http'
 import { useMount } from 'utils'
+import { useAsync } from 'screens/project-list/hooks/use-async'
+import { FullPageErrorFallback, FullPageLoading } from 'components/lib'
 
 // 登录持久化
 const bootstrapUser = async () => {
@@ -29,24 +31,27 @@ const AuthContext = createContext<
 AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<IUser | null>(null)
+    // const [user, setUser] = useState<IUser | null>(null)
+    const { data: user, setData: setUser, run, isIdle, isError, isLoading, error } = useAsync<IUser | null>()
 
-    // const login = (form: ILoginParams) => auth.login(form).then((res) => setUser(res))
-
-    // const register = (form: ILoginParams) => auth.register(form).then((res) => setUser(res))
-
-    // const logout = () => auth.logout().then((res) => setUser(null))
-
-    // 消参
     const login = (form: ILoginParams) => auth.login(form).then(setUser)
 
     const register = (form: ILoginParams) => auth.register(form).then(setUser)
 
     const logout = () => auth.logout().then(() => setUser(null))
-
     useMount(() => {
-        bootstrapUser().then(setUser)
+        run(bootstrapUser())
     })
+
+    // 初始化或者请求时返回这个loading页面
+    if (isIdle || isLoading) {
+        return <FullPageLoading />
+    }
+
+    // 这里返回错误页面
+    if (isError) {
+        return <FullPageErrorFallback error={error} />
+    }
 
     return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
 }
