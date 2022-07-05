@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 // 去除对象里面的值为假的，除开0
 export function cleanObject(object: { [key: string]: unknown }) {
@@ -57,4 +57,22 @@ export const useArray = <T>(array: T[]) => {
             setValue(res)
         }
     }
+}
+
+// keepOnUnmount离开此页面是否需要保存该页面title
+export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
+    // 使用useRef包裹的值在整个生命周期都是不会发生变化的
+    const oldTitle = useRef(document.title).current
+
+    useEffect(() => {
+        document.title = title
+    }, [title])
+
+    useEffect(() => {
+        return () => {
+            if (!keepOnUnmount) {
+                document.title = oldTitle
+            }
+        }
+    }, [oldTitle, keepOnUnmount])
 }
