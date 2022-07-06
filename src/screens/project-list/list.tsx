@@ -2,6 +2,7 @@ import { IProject, IUser } from './types'
 import { Table } from 'antd'
 import type { TableProps } from 'antd'
 import dayjs from 'dayjs'
+import { Link } from 'react-router-dom'
 
 // 这样写可以把传过来的赋值给table的属性一下展开
 interface IListProps extends TableProps<IProject> {
@@ -15,8 +16,10 @@ const List = ({ users, ...props }: IListProps) => {
             columns={[
                 {
                     title: '名称',
-                    dataIndex: 'name',
-                    sorter: (a, b) => a.name.localeCompare(b.name)
+                    sorter: (a, b) => a.name.localeCompare(b.name),
+                    render(value, project) {
+                        return <Link to={project.id}>{project.name}</Link>
+                    }
                 },
                 {
                     title: '部门',
